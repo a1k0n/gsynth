@@ -182,7 +182,7 @@ on_machine_drawarea_button_press_event (GtkWidget       *widget,
                                         gpointer         user_data)
 {
   int mystate;
-  if(event->button == 3 && !event->state) {
+  if(event->button == 3 && !(event->state & 5)) {
 	int which = cb_machine_popup_dialog();
 	switch(which) {
 		case 0:
