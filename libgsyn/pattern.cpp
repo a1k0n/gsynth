@@ -76,8 +76,8 @@ int gsynth_Pattern::SetData(int track, int row, int col, long val)
 	if(!rowdata) return 0;
 	if((unsigned)col>=(bytes_per_row/sizeof(long))) return 0;
 	if(val != -1) {
-		if(val < format[col]->min) val = format[col]->min;
-		if(val > format[col]->max) val = format[col]->max;
+		if(val < format[col]->min) return 0; // val = format[col]->min;
+		if(val > format[col]->max) return 0; // val = format[col]->max;
 	}
 	rowdata[col] = val;
 	return 1;
