@@ -1,0 +1,73 @@
+I'm about to add file saving to gsynth, so I need to come up with a
+fileformat.
+
+Here goes.
+
+The gsynth machine state contains these elements:
+	- List of module instances
+		- numeric ID for this instance, ID0 = master
+		- module base filename "/prefix/lib/gsynth/[blah].so" = blah
+		- module name in interface
+		- integer scaled (0 to MAXINT) x,y position if machine box
+		- A list of patterns associated with this instance
+			- length, tracks
+			- numeric ID
+			- <length> number of longs of pattern data
+		- Sequencer order for this instance
+			- length
+			- loop start/end
+			- sorted list of:
+				- row position
+				- pattern ID
+	- Connectivity graph: list of
+		- src ID
+		- dst ID
+
+note: i forgot to save loop points.
+
+All integers are in big-endian (AKA network) byte order.
+
+struct gsynth_file
+{
+	char magic[4] = "GSYN";
+	char title[32];
+	int32 num_modules;
+	gsynth_file_module modules[num_modules];
+	int32 num_connections;
+	gsynth_file_connection connections[num_connections];
+};
+
+struct gsynth_file_module
+{
+	int32 ID;
+	char filename[32];
+	char modulename[32];
+	int32 x,y;
+	int32 num_patterns;
+	gsynth_file_pattern patterns[num_patterns];
+	gsynth_file_order order;
+};
+
+struct gsynth_file_pattern
+{
+	int32 ID;
+	char patname[32];
+	int32 length, tracks;
+	int32 data[length*tracks];
+};
+
+struct gsynth_file_order
+{
+	int num_entries;
+	struct {
+		int row;
+		int patID;
+	} entries[num_entries];
+};
+
+struct gsynth_file_connection
+{
+	int src_ID;
+	int dst_ID;
+};
+

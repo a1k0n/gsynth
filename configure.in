@@ -1,0 +1,65 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(libgsyn/syncore.h)
+AM_INIT_AUTOMAKE(gsynth, 0.4.9)
+AM_DISABLE_STATIC
+AM_PROG_LIBTOOL
+
+dnl Checks for programs.
+AC_PROG_CC
+AM_PROG_CC_STDC
+AC_HEADER_STDC
+AC_PROG_CPP
+AC_PROG_CXX
+
+AC_ARG_PROGRAM
+AC_PROG_INSTALL
+
+AM_PATH_GTK(1.0.0, ,
+		AC_MSG_ERROR(Cannot find GTK: Is gtk-config in path?))
+
+dnl Only use -Wall if we have gcc
+if test "x$GCC" = "xyes"; then
+  if test -z "`echo "$CFLAGS" | grep "\-Wall" 2> /dev/null`" ; then
+    CFLAGS="$CFLAGS -Wall"
+    CXXFLAGS="$CXXFLAGS -Wall"
+  fi
+fi
+
+AC_CHECK_HEADER(pthread.h)
+AC_CHECK_LIB(pthread, pthread_create)
+AC_CHECK_LIB(c_r, pthread_create)
+
+CFLAGS="$CFLAGS -D_REENTRANT"
+CXXFLAGS="$CXXFLAGS -D_REENTRANT"
+
+AC_CHECK_HEADER(algorithm, ,AC_DEFINE(NO_NAMESPACES))
+
+AC_CHECK_HEADER(sys/soundcard.h)
+AC_CHECK_HEADER(audio.h)
+
+AC_CHECK_LIB(audio, ALnewconfig)
+
+AC_C_BIGENDIAN
+
+moduledir=$libdir/gsynth
+libgsynincludedir=$includedir/libgsyn
+
+AC_SUBST(moduledir)
+AC_SUBST(libgsynincludedir)
+
+AC_OUTPUT(
+	Makefile 
+	libgsyn/Makefile
+	modules/Makefile
+	gui-common/Makefile
+	gui-gtk/Makefile
+
+	gui-mfc/Makefile
+	gui-mfc/res/Makefile
+
+	modules/tb303/Makefile
+	modules/octave/Makefile
+	modules/bdrum/Makefile
+
+	images/Makefile
+)

@@ -1,0 +1,71 @@
+This is a pre-release of gsynth 0.5.  It is not very functional yet; the
+only thing that works is the machine editor, the synthesizer core, and the
+tracker.  The machine editor is about 90% complete and the tracker about
+50%.  
+
+To get this to work, you have to make install so it can find the shared
+object modules (I usually ./configure --prefix=$HOME and install 'em in my
+homedir).  
+
+Fire it up, and you'll have a window with a "Master" box in the center.
+Here's what you can do:
+
+	- To move modules around, click and drag on 'em.
+	- To add a module, right click and select "Add Module" from the
+	  (single-element for now) popup menu.
+	- To connect modules together, hold down shift and drag with the
+	  left mouse button from the source to the destination.  Note that
+	  modules which don't accept any input (also called generators)
+	  won't allow you to connect anything to them.  Likewise you can't
+	  connect anything with the master output as the source.
+	- To remove or rename modules, right click on them.
+	- To disconnect them, write the code to do it and send me the
+	  patch.
+
+So far the only modules are "TB303" and "Octave".  The former is a mostly
+complete port of the original gsyn tb303 code.  Octave is a kludgey attempt
+to lower the input an octave and send it to the output.  It doesn't do it
+properly at all, but it sounds pretty interesting.
+
+You can also go to the "Tracker" tab and select a machine in the listbox
+and then click "Create Module".  You'll be asked for a pattern name and a
+length.  When you create this pattern, it will show up in the tracker and
+it will immediately be played in a loop by the module the pattern was
+created for (though its initially blank so this isn't obvious).  When you
+start entering notes/values they will play over and over while the sequence
+loops.  I also have it restarting all module sequencers when any of the
+sequencers loop, so your loops will be as long as the shortest pattern of
+your machines.  This will change, of course, when I actually write a
+sequencer.
+
+The keys in the tracker are:
+
+in note columns:
+ s d   g h j
+z x c v b n m ,  - notes
+
+0-9		- octaves
+
+.		- removes note, restores "..."
+
+in hex number columns with a max range <= 9
+0-9		- number
+
+in hex number columns with a max range > 9
+0-9		- 0 to 100% of maximum
+
+I have plans to change that last one to something you can actually enter
+values into, but for now it's easy to tweak.  I also have plans to restore
+the knobs as a popup window for each module so they can be tweaked realtime
+and written into the tracker simply by playing the pattern and dragging the
+knobs.
+
+Anyway, there's not much to it.  None of the toolbar buttons nor menu
+choices (except for quit and about) are functional.  The notebook tab for
+the sequencer will one day contain the sequencer.  As you can see, it's
+going to take a bit of work before that happens.  
+
+Let me know what you think so far.
+
+-Andy <andy@guildsoftware.com>
+

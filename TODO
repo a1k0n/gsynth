@@ -1,0 +1,103 @@
+Stuff to do:
+
+Core synthesizer
+
+	- deleting modules/sbuffers probably doesn't remove all the
+	  patterns.  the gui seems to be in sync though.  double check on
+	  that.
+	- resizing patterns in pattern.cpp won't work with existing data.
+	  fix that.
+	- ALSA output module
+	- ESD output module
+	- configure flags to select output module..?
+	- change pattern saving to use a "compressed" format which should
+	  also make it more robust.
+
+Machine Builder
+	- Volume/pan dialog
+	
+Tracker
+	- adding a pattern selects that pattern but doesn't update plist
+	  box (wrong selection shows up)
+	- more complete track editing stuff
+	- hotkeys for changing patterns
+	- add tracks
+	- rightclick interface for adding tracks/removing tracks
+	- confirmation dialog for removing tracks and patterns
+	- optimize refreshes on gui-gtk
+	- selection
+	- cut/copy/paste
+	- hitting enter in create pattern name editbox should create the
+	  pattern
+	- gtk: need some way to force listboxes to show correct item when
+	  patterns are selected
+
+Sequencer
+	(everything)
+
+General GUI
+	- Status bar stuff
+	- Tempo control
+	- Song naming
+	- General modal dialog box (ok/cancel, yes/no), maybe?
+	- Speed up the backbuffering crap - keep dirty rectangles or
+	  something.
+	- splash screen
+		- started, need something to put meaningful text into it
+		  though.
+
+---------------------------------------------------------------------
+Stuff that's done:
+
+Core synthesizer
+
+	- Add/remove modules
+	- Add/remove tracks (add clone function to SynthModule)
+	- Connect/disconnect modules
+	- figure out pattern format
+	- Fill buffers
+	- Make a master module built into synth library
+	- check connection validity (walk dependency tree) before
+	  performing connection
+	- Move modules/module.h into libgsyn/module.h and set it as an
+	  install target as such; this way modules can be developed outside
+	  of the gsynth source tree.
+	- "About" information in all modules.. module writers need credit.
+	- make patterns multi-track
+	- Pattern creation given an SBuffer (pattern list in each buffer)
+	- make gsynth_Sequence relative to
+	  a SBuffer instead of single SynthModule
+	- add ability to add/remove tracks from patterns; add this ability
+	  to a whole SBuffer
+	- process patterns on each tick (load sequences into core)
+	- play a simple loop based on the size of last-added pattern
+	- Win32 master output module
+	- Song saving and loading.
+
+Machine Builder
+	- make all module names unique (use #1, #2, etc)
+	- shift-click/drag to connect
+	- Scan modules; add to rightclick interface
+	- make other right-click interfaces -
+		module dialog:
+			remove module (done)
+			rename module (done)
+			module properties (unused for now)
+			about module...
+	- keep interface module names in sync with buffer names in core
+	- rename dialog: select all text in edit box initially
+	- regenerate tracker_mlist on rename
+	- connection right-click interface
+
+Tracker
+	- gui-common drawing stuff/callbacks
+	- make module names show up in the module listbox same with pattern
+	  names
+	- module select callback
+	- create patterns (create button)
+	- parse moduleinfo, display patterns
+	- basic track editing
+	- scrolling
+
+General GUI
+	- General about box for modules

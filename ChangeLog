@@ -1,0 +1,20 @@
+Version 0.4.x
+	Completely redesigned and rewritten.  Completely different program,
+	really.
+
+Version 0.3
+	Imaginary transitional versions.
+
+Version 0.2
+	Complete conversion to gtk--.  
+	Now with two 303s.
+
+Version 0.1.2
+	Removed background texture and adjusted led.xpm to match.  
+	Applied the Sun audio patch by Mattias Engdegård.  
+	Applied Nate Ferch's quarter-note background highlighting patch.
+	Bigendian fixes.
+
+Version 0.1
+	Initial release.
+
